@@ -564,37 +564,27 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
          * Subscribe form ajax
          /* ---------------------------------------------- */
 
-        $('#subscription-form').submit(function(e) {
+         gsap
+   .timeline({
+     scrollTrigger: {
+       trigger: ".trigger",
+       scrub: 0.5,
+       pin: true,
+       start: "top top",
+       end: "+=150%"
+     }
+   })
+   .to(".box", {
+     force3D: true,
+     duration: 1,
+     xPercent: 100,
+     ease: "power1.inOut",
+     stagger: { amount: 1 }
+   })
+   .to(".box", { ease: "power1.out", duration: 1, rotation: "45deg" }, 0)
+   .to(".box", { ease: "power1.in", duration: 1, rotation: "0deg" }, 1);
 
-            e.preventDefault();
-            var $form           = $('#subscription-form');
-            var submit          = $('#subscription-form-submit');
-            var ajaxResponse    = $('#subscription-response');
-            var email           = $('input#semail').val();
 
-            $.ajax({
-                type: 'POST',
-                url: 'assets/php/subscribe.php',
-                dataType: 'json',
-                data: {
-                    email: email
-                },
-                cache: false,
-                beforeSend: function(result) {
-                    submit.empty();
-                    submit.append('<i class="fa fa-cog fa-spin"></i> Wait...');
-                },
-                success: function(result) {
-                    if(result.sendstatus == 1) {
-                        ajaxResponse.html(result.message);
-                        $form.fadeOut(500);
-                    } else {
-                        ajaxResponse.html(result.message);
-                    }
-                }
-            });
-
-        });
 
 
         /* ---------------------------------------------- /*
@@ -847,5 +837,3 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
 
     });
 })(jQuery);
-
-
